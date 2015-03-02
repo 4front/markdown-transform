@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var through = require('through2');
 var marked = require('marked');
 var highlightJs = require('highlight.js');
