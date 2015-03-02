@@ -45,21 +45,19 @@ Works seamlessly for transforming Markdown API responses to HTML with the
 
 ```js
 // Express app
-var apiProxy = require('express-api-proxy')({
+app.all('/proxy', require('express-api-proxy')({
    endpoints: [
-   		{
-   			pattern: /raw\.githubusercontent\.com\/.*\.md/,
-   			transform: require('markdown-transform')({highlight:true})
-   		}
+        {
+            pattern: /raw\.githubusercontent\.com\/.*\.md/,
+            transform: require('markdown-transform')({highlight:true})
+        }
    ]
-});
-
-app.all('/proxy', apiProxy);
+}));
 
 // Browser app
 $.ajax({
 	url: '/proxy',
-	params: {
+	data: {
 		url: 'https://raw.githubusercontent.com/4front/express-api-proxy/master/README.md'
 	},
 	success: function(data) {
