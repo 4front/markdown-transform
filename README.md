@@ -20,10 +20,10 @@ Supports passthrough of all the [marked options](https://www.npmjs.com/package/m
 ## Usage 
 
 ```js
-var transform = require('markdown-transform');
+var markdownTransform = require('markdown-transform');
 
 fs.createReadStream('README.md')
-    .pipe(transform({highlight: true}))
+    .pipe(markdownTransform({highlight: true}))
     .pipe(process.stdout);
 ```
 
@@ -31,9 +31,11 @@ fs.createReadStream('README.md')
 
 ```js
 app.get('/readme', function(req, res, next) {
-    res.set('Content-Type', 'text/html');
+    var transform = markdownTransform({highlight: true});
+
+    res.set('Content-Type', transform.contentType);
     fs.createReadStream('./markdown.md')
-        .pipe(transform({highlight: true}))
+        .pipe(transform)
         .pipe(res);
 });
 ```

@@ -2,7 +2,7 @@ var through = require('through2');
 var marked = require('marked');
 var highlightJs = require('highlight.js');
 
-module.exports = transform = function(options) {
+module.exports = function(options) {
   if (!options)
     options = {};
 
@@ -27,7 +27,8 @@ module.exports = transform = function(options) {
     callback();
   };
 
-  return through.obj(writeFn, endFn);
-};
+  var transform = through.obj(writeFn, endFn);
+  transform.contentType = 'text/html';
 
-transform.contentType = 'text/html';
+  return transform;
+};

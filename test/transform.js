@@ -20,6 +20,7 @@ describe('markdownTransform()', function() {
   it('performs syntax highlighting', function(done) {
     var markdown = '```js\nvar foo=1;\n```';
     var html = '';
+
     readStream(markdown).pipe(transform({highlight:true}))
       .on('data', function(chunk) {
         html += chunk.toString();
@@ -31,7 +32,7 @@ describe('markdownTransform()', function() {
   });
 
   it('has correct content-type', function() {
-    assert.equal(transform.contentType, 'text/html');
+    assert.equal(transform().contentType, 'text/html');
   });
 });
 
